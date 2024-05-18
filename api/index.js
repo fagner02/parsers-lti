@@ -1,11 +1,21 @@
 const lti = require("ltijs").Provider;
-
+const cors = require("cors");
+process.env.client = "lU9O4tmFOF6Kc4B";
+process.env.url = "http://localhost:3000";
+process.env.name = "Platform Name";
+process.env.authenticationEndpoint = "http://localhost/mod/lti/auth.php";
+process.env.accesstokenEndpoint = "http://localhost/mod/lti/token.php";
+process.env.key = "http://localhost/mod/lti/certs.php";
+process.env.connection =
+  "mongodb+srv://fagnerrc12:NDB4K7oFWYaiZb1n@cluster0.mm3cmlq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+process.env.port = 3000;
 lti.setup(
   process.env.client,
   {
     url: process.env.connection,
   },
   {
+    cors: false,
     cookies: {
       secure: false,
       sameSite: "",
