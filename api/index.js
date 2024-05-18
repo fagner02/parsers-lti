@@ -15,7 +15,7 @@ lti.setup(
     url: process.env.connection,
   },
   {
-    cors: false,
+    cors: true,
     cookies: {
       secure: false,
       sameSite: "",
