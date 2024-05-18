@@ -1,5 +1,4 @@
 const lti = require("ltijs").Provider;
-const cors = require("cors");
 
 lti.setup(
   process.env.client,
@@ -11,7 +10,6 @@ lti.setup(
       secure: false,
       sameSite: "",
     },
-    devMode: true,
     dynReg: {
       url: process.env.url,
       name: "Tool Provider",
@@ -22,6 +20,11 @@ lti.setup(
     },
   }
 );
+
+lti.app.get("/test", (req, res) => {
+  res.send(lti.Database);
+});
+lti.whitelist("/test");
 
 lti.onDynamicRegistration(async (req, res, next) => {
   try {
