@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "dev": "node api/index"
+    "dev": "node api/index",
+    "start": "node api/index"
   },
   "author": "Fagner Ferreira",
   "license": "ISC"
