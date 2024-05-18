@@ -6,7 +6,7 @@ lti.setup(
   process.env.client, // Key used to sign cookies and tokens
   {
     // Database configuration
-    url: "",
+    url: process.env.connection,
   },
   {
     // Options
