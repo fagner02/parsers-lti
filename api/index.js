@@ -25,7 +25,7 @@ lti.app.get("/test", (req, res) => {
   res.send(process.env);
 });
 
-lti.whitelist(["/test"]);
+lti.whitelist("/test");
 
 lti.onDynamicRegistration(async (req, res, next) => {
   // try {
