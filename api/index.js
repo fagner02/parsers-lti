@@ -7,7 +7,6 @@ lti.setup(
     url: process.env.connection,
   },
   {
-    cors: true,
     cookies: {
       secure: false,
       sameSite: "",
@@ -22,12 +21,6 @@ lti.setup(
       autoActivate: true,
     },
   }
-);
-
-lti.app.use(
-  cors({
-    origin: "*",
-  })
 );
 
 lti.onDynamicRegistration(async (req, res, next) => {
