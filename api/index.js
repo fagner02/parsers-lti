@@ -21,8 +21,11 @@ lti.setup(
   }
 );
 
-lti.onDynamicRegistration(async (req, res, next) => {
+lti.app.get("/test", (req, res) => {
   res.send(process.env);
+});
+
+lti.onDynamicRegistration(async (req, res, next) => {
   // try {
   //   if (!req.query.openid_configuration)
   //     return res.status(400).send({
