@@ -32,6 +32,12 @@ lti.setup(
   }
 );
 
+lti.app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 lti.onDynamicRegistration(async (req, res, next) => {
   try {
     if (!req.query.openid_configuration)
