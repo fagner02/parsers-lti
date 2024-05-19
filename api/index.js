@@ -7,9 +7,10 @@ lti.setup(
   },
   {
     cookies: {
-      secure: false,
-      sameSite: "",
+      secure: true,
+      sameSite: "None",
     },
+    devMode: false,
     dynReg: {
       url: process.env.url,
       name: "Tool Provider",
@@ -20,12 +21,6 @@ lti.setup(
     },
   }
 );
-
-lti.app.get("/test", (req, res) => {
-  res.send(process.env);
-});
-
-lti.whitelist("/test");
 
 lti.onDynamicRegistration(async (req, res, next) => {
   try {
