@@ -9,8 +9,8 @@ lti.setup(
   },
   {
     cookies: {
-      secure: true,
-      sameSite: "None",
+      secure: false,
+      sameSite: "",
     },
     devMode: false,
     dynReg: {
