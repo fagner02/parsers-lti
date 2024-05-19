@@ -28,32 +28,32 @@ lti.app.get("/test", (req, res) => {
 lti.whitelist("/test");
 
 lti.onDynamicRegistration(async (req, res, next) => {
-  // try {
-  //   if (!req.query.openid_configuration)
-  //     return res.status(400).send({
-  //       status: 400,
-  //       error: "Bad Request",
-  //       details: { message: 'Missing parameter: "openid_configuration".' },
-  //     });
-  //   const message = await lti.DynamicRegistration.register(
-  //     req.query.openid_configuration,
-  //     req.query.registration_token
-  //   );
-  //   res.setHeader("Content-type", "text/html");
-  //   res.send(message);
-  // } catch (err) {
-  //   if (err.message === "PLATFORM_ALREADY_REGISTERED")
-  //     return res.status(403).send({
-  //       status: 403,
-  //       error: "Forbidden",
-  //       details: { message: "Platform already registered." },
-  //     });
-  //   return res.status(500).send({
-  //     status: 500,
-  //     error: "Internal Server Error",
-  //     details: { message: err },
-  //   });
-  // }
+  try {
+    if (!req.query.openid_configuration)
+      return res.status(400).send({
+        status: 400,
+        error: "Bad Request",
+        details: { message: 'Missing parameter: "openid_configuration".' },
+      });
+    const message = await lti.DynamicRegistration.register(
+      req.query.openid_configuration,
+      req.query.registration_token
+    );
+    res.setHeader("Content-type", "text/html");
+    res.send(message);
+  } catch (err) {
+    if (err.message === "PLATFORM_ALREADY_REGISTERED")
+      return res.status(403).send({
+        status: 403,
+        error: "Forbidden",
+        details: { message: "Platform already registered." },
+      });
+    return res.status(500).send({
+      status: 500,
+      error: "Internal Server Error",
+      details: { message: err },
+    });
+  }
 });
 lti.app.post("/grade", async (req, res) => {
   try {
