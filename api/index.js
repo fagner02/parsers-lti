@@ -14,71 +14,72 @@ lti.setup(
       sameSite: "",
     },
     devMode: false,
-    // dynReg: {
-    //   url: process.env.url,
-    //   name: "Tool Provider",
-    //   logo: "https://parsers-svelte.netlify.app/favicon.png",
-    //   description: "Tool Description",
-    //   redirectUris: [process.env.url],
-    //   autoActivate: true,
-    //   useDeepLinking: false,
-    // },
+    dynReg: {
+      url: process.env.url,
+      name: "Tool Provider",
+      logo: "https://parsers-svelte.netlify.app/favicon.png",
+      description: "Tool Description",
+      redirectUris: [process.env.url],
+      autoActivate: true,
+      useDeepLinking: false,
+    },
   }
 );
 
 const client = new MongoClient(process.env.connection);
 
-// lti.onDynamicRegistration(async (req, res, next) => {
-//   try {
-//     if (!req.query.openid_configuration)
-//       return res.status(400).send({
-//         status: 400,
-//         error: "Bad Request",
-//         details: { message: 'Missing parameter: "openid_configuration".' },
-//       });
+lti.onDynamicRegistration(async (req, res, next) => {
+  try {
+    if (!req.query.openid_configuration)
+      return res.status(400).send({
+        status: 400,
+        error: "Bad Request",
+        details: { message: 'Missing parameter: "openid_configuration".' },
+      });
 
-//     const message = await lti.DynamicRegistration.register(
-//       req.query.openid_configuration,
-//       req.query.registration_token
-//     );
+    const message = await lti.DynamicRegistration.register(
+      req.query.openid_configuration,
+      req.query.registration_token
+    );
 
-//     // const config = await got.get(openidConfiguration).json();
-//     // config.
-//     /**@type {string}*/
-//     let url = req.headers.referer;
-//     if (url.endsWith("/")) {
-//       url = url.substring(0, url.length - 1);
-//     }
-//     const db = client.db("test");
-//     const plats = db.collection("platforms");
-//     const plat = await plats.findOne({ platformUrl: url });
-//     // await plats.deleteOne({ _id: plat._id });
-//     await lti.deletePlatform(plat.platformUrl, plat.clientId);
+    // const config = await got.get(openidConfiguration).json();
+    // config.
+    /**@type {string}*/
+    let url = req.headers.referer;
+    if (url.endsWith("/")) {
+      url = url.substring(0, url.length - 1);
+    }
+    const db = client.db("test");
+    const plats = db.collection("platforms");
+    const plat = await plats.findOne({ platformUrl: url });
+    // await plats.deleteOne({ _id: plat._id });
+    await lti.deletePlatform(plat.platformUrl, plat.clientId);
 
-//     await lti.registerPlatform({
-//       url: plat.platformUrl,
-//       clientId: plat.clientId,
-//       name: plat.platformName,
-//       authenticationEndpoint: plat.authEndpoint,
-//       accesstokenEndpoint: plat.accesstokenEndpoint,
-//       authConfig: plat.authConfig,
-//     });
-//     res.setHeader("Content-type", "text/html");
-//     res.send(message);
-//   } catch (err) {
-//     if (err.message === "PLATFORM_ALREADY_REGISTERED")
-//       return res.status(403).send({
-//         status: 403,
-//         error: "Forbidden",
-//         details: { message: "Platform already registered." },
-//       });
-//     return res.status(500).send({
-//       status: 500,
-//       error: "Internal Server Error",
-//       details: { message: err },
-//     });
-//   }
-// });
+    // lti.getPlatform().then(x=>x.platformAccessToken())
+    await lti.registerPlatform({
+      url: plat.platformUrl,
+      clientId: plat.clientId,
+      name: plat.platformName,
+      authenticationEndpoint: plat.authEndpoint,
+      accesstokenEndpoint: plat.accesstokenEndpoint,
+      authConfig: plat.authConfig,
+    });
+    res.setHeader("Content-type", "text/html");
+    res.send(message);
+  } catch (err) {
+    if (err.message === "PLATFORM_ALREADY_REGISTERED")
+      return res.status(403).send({
+        status: 403,
+        error: "Forbidden",
+        details: { message: "Platform already registered." },
+      });
+    return res.status(500).send({
+      status: 500,
+      error: "Internal Server Error",
+      details: { message: err },
+    });
+  }
+});
 lti.app.post("/grade", async (req, res) => {
   try {
     const idtoken = res.locals.token;
