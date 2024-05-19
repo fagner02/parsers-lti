@@ -109,7 +109,7 @@ lti.onConnect(async (token, req, res) => {
       gradingProgress: "FullyGraded",
     };
 
-    const result = await lti.Grade.scorePublish(idtoken, gradeObj);
+    const result = await lti.Grade.result(idtoken);
     // let lineItemId = idtoken.platformContext.endpoint.lineitem;
     // if (!lineItemId) {
     //   const response = await lti.Grade.getLineItems(idtoken, {
