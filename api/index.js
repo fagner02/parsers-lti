@@ -44,26 +44,26 @@ lti.onDynamicRegistration(async (req, res, next) => {
 
     // const config = await got.get(openidConfiguration).json();
     // config.
-    /**@type {string}*/
-    let url = req.headers.referer;
-    if (url.endsWith("/")) {
-      url = url.substring(0, url.length - 1);
-    }
-    const db = client.db("test");
-    const plats = db.collection("platforms");
-    const plat = await plats.findOne({ platformUrl: url });
-    // await plats.deleteOne({ _id: plat._id });
-    await lti.deletePlatform(plat.platformUrl, plat.clientId);
+    // /**@type {string}*/
+    // let url = req.headers.referer;
+    // if (url.endsWith("/")) {
+    //   url = url.substring(0, url.length - 1);
+    // }
+    // const db = client.db("test");
+    // const plats = db.collection("platforms");
+    // const plat = await plats.findOne({ platformUrl: url });
+    // // await plats.deleteOne({ _id: plat._id });
+    // await lti.deletePlatform(plat.platformUrl, plat.clientId);
 
-    // lti.getPlatform().then(x=>x.platformAccessToken())
-    await lti.registerPlatform({
-      url: plat.platformUrl,
-      clientId: plat.clientId,
-      name: plat.platformName,
-      authenticationEndpoint: plat.authEndpoint,
-      accesstokenEndpoint: plat.accesstokenEndpoint,
-      authConfig: plat.authConfig,
-    });
+    // // lti.getPlatform().then(x=>x.platformAccessToken())
+    // await lti.registerPlatform({
+    //   url: plat.platformUrl,
+    //   clientId: plat.clientId,
+    //   name: plat.platformName,
+    //   authenticationEndpoint: plat.authEndpoint,
+    //   accesstokenEndpoint: plat.accesstokenEndpoint,
+    //   authConfig: plat.authConfig,
+    // });
     res.setHeader("Content-type", "text/html");
     res.send(message);
   } catch (err) {
@@ -185,18 +185,18 @@ const setup = async () => {
   //   },
   // });
 
-  await lti.registerPlatform({
-    url: "https://sandbox.moodledemo.net",
-    name: "moodle",
-    clientId: "XQ9dma5gh2FoVpS",
-    authenticationEndpoint: "https://sandbox.moodledemo.net/mod/lti/auth.php",
-    accesstokenEndpoint: "https://sandbox.moodledemo.net/mod/lti/token.php",
+  // await lti.registerPlatform({
+  //   url: "https://sandbox.moodledemo.net",
+  //   name: "moodle",
+  //   clientId: "XQ9dma5gh2FoVpS",
+  //   authenticationEndpoint: "https://sandbox.moodledemo.net/mod/lti/auth.php",
+  //   accesstokenEndpoint: "https://sandbox.moodledemo.net/mod/lti/token.php",
 
-    authConfig: {
-      method: "JWK_SET",
-      key: "https://sandbox.moodledemo.net/mod/lti/certs.php",
-    },
-  });
+  //   authConfig: {
+  //     method: "JWK_SET",
+  //     key: "https://sandbox.moodledemo.net/mod/lti/certs.php",
+  //   },
+  // });
 };
 
 setup();
