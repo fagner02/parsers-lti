@@ -10,7 +10,7 @@ lti.setup(
   },
   {
     cookies: {
-      secure: true,
+      secure: false,
       sameSite: "None",
     },
     devMode: false,
