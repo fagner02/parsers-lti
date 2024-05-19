@@ -12,6 +12,7 @@ lti.setup(
       secure: false,
       sameSite: "",
     },
+    cors: true,
     devMode: false,
     dynReg: {
       url: process.env.url,
