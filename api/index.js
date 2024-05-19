@@ -11,7 +11,7 @@ lti.setup(
   {
     cookies: {
       secure: false,
-      sameSite: "",
+      sameSite: "None",
     },
     devMode: false,
     dynReg: {
