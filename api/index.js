@@ -103,7 +103,7 @@ lti.onConnect(async (token, req, res) => {
 
     const gradeObj = {
       userId: idtoken.user,
-      scoreGiven: score,
+      scoreGiven: 50,
       scoreMaximum: 100,
       activityProgress: "Completed",
       gradingProgress: "FullyGraded",
