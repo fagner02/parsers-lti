@@ -6,6 +6,7 @@
   "dependencies": {
     "@hubroeducation/ltijs": "^5.9.8",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "ltijs": "^5.9.5",
     "serverless-http": "^3.2.0"
   },
