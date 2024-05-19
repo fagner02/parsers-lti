@@ -1,3 +1,4 @@
+const cors = require("cors");
 const lti = require("ltijs").Provider;
 
 lti.setup(
@@ -20,6 +21,12 @@ lti.setup(
       autoActivate: true,
     },
   }
+);
+
+lti.app.use(
+  cors({
+    origin: "*",
+  })
 );
 
 lti.onDynamicRegistration(async (req, res, next) => {
